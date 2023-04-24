@@ -1,0 +1,38 @@
+name: Build React Native
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: reactnativecommunity/react-native-android:latest
+
+    steps:
+    - name: Checkout react-native
+      uses: actions/checkout@v3
+      with:
+        repository: facebook/react-native
+        ref: v0.71.7
+
+    - name: Apply utf8-fix.patch
+      run: |
+        curl -fsSL https://github.com/robertying/react-native-fix/commit/1624343e702e31946e2c33dba2d3c123872df94e.patch -o utf8-fix.patch
+        git apply utf8-fix.patch
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Build and install archives
+      run: ./gradlew installArchives
+      
+    - name: Compress android output
+      run: |
+        tar -czf android.tar.gz ./android
+
+    - name: Upload android output artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: android
+        path: android.tar.gz
+        
