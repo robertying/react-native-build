@@ -28,7 +28,7 @@ jobs:
       
     - name: Compress android output
       run: |
-        tar -czf android.tar.gz ./android
+        tar -czf android.tar.gz ./packages/react-native/android
 
     - name: Upload android output artifact
       uses: actions/upload-artifact@v3
