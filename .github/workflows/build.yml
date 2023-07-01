@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         repository: facebook/react-native
-        ref: v0.72.0
+        ref: v0.72.1
 
     - name: Apply utf8-fix.patch
       run: |
