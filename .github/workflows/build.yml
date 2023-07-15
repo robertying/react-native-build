@@ -26,9 +26,14 @@ jobs:
     - name: Build and install archives
       run: ./gradlew installArchives
       
+    - name: Move output and clean up
+    - run: |
+        mv ./packages/react-native/android ../android
+        cd ..
+        rm -rf react-native-build
+      
     - name: Compress android output
-      run: |
-        tar -czf android.tar.gz ./packages/react-native/android
+      run: tar -czf android.tar.gz android
 
     - name: Upload android output artifact
       uses: actions/upload-artifact@v3
