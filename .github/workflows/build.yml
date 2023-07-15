@@ -27,7 +27,7 @@ jobs:
       run: ./gradlew installArchives
       
     - name: Move output and clean up
-    - run: |
+      run: |
         mv ./packages/react-native/android ../android
         cd ..
         rm -rf react-native-build
