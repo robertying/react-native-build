@@ -14,10 +14,10 @@ jobs:
       with:
         tool-cache: true
         android: true
-        dotnet: true
+        dotnet: false
         haskell: true
         large-packages: true
-        swap-storage: true
+        swap-storage: false
         
     - name: Checkout react-native
       uses: actions/checkout@v3
