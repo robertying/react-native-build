@@ -10,20 +10,22 @@ jobs:
 
     steps:
     - name: Free disk space
-      uses: jlumbroso/free-disk-space@main
-      with:
-        tool-cache: true
-        android: true
-        dotnet: false
-        haskell: true
-        large-packages: true
-        swap-storage: false
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         
     - name: Checkout react-native
       uses: actions/checkout@v3
       with:
         repository: facebook/react-native
         ref: v0.72.4
+
+    - name: Install node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
 
     - name: Apply utf8-fix.patch
       run: |
